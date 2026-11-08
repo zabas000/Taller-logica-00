@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+public class Dron {
+    public static void main(String[] args) {
+        int n=20;
+        float [][]recorrido=new float[n][3];
+        float []tiempo=new float[n-1];
+        float []distancia=new float[n-1];
+        float []velocidad=new float[n-1];
+        float dstTotal=0;
+        float vlcPromedio=0;
+        int  cntValidos=0;
+        int indiceTrmMenor=0;
+        int indiceTrmMayor=0;
+
+        Scanner input = new Scanner(System.in);
+        //llenar las coordenadas
+        System.out.println("Ingrese el punto de inicio del recorrido 1 ");
+        recorrido[0][0]=input.nextFloat();
+        recorrido[0][1]=input.nextFloat();
+        recorrido[0][2]=input.nextFloat();
+        for(int i=1;i<n;i++){
+            System.out.println("Ingrese el punto de final del recorrido "+i);
+            if(i%4==0){
+                recorrido[i][0]=recorrido[i-1][0];
+                recorrido[i][1]=recorrido[i-1][1];
+                recorrido[i][2]=recorrido[i-1][2];
+                continue;
+            }
+            recorrido[i][0]=(float)Math.random()*50;
+            recorrido[i][1]=(float)Math.random()*50;
+            recorrido[i][2]=(float)Math.random()*50;
+            /*
+            recorrido[i][0]=input.nextFloat();
+            recorrido[i][1]=input.nextFloat();
+            recorrido[i][2]=input.nextFloat();
+*/
+            System.out.println("Ingrese el tiempo del recorrido "+i);
+            //tiempo[i-1]=input.nextFloat();
+            tiempo[i-1]=(float)Math.random()*10;
+        }
+       for(int i=0;i<n-1;i++){
+           distancia[i]=(float)Math.sqrt(Math.pow(recorrido[i][0]-recorrido[i+1][0],2)+
+                   Math.pow(recorrido[i][1]-recorrido[i+1][1],2)+
+                   Math.pow(recorrido[i][2]-recorrido[i+1][2],2));
+           velocidad[i]=distancia[i]/tiempo[i];
+           if(distancia[i]>0.5){
+               dstTotal+=distancia[i];
+               vlcPromedio+=velocidad[i];
+               cntValidos++;
+               if(velocidad[i]>velocidad[indiceTrmMayor])
+                   indiceTrmMayor=i;
+               if(velocidad[i]<velocidad[indiceTrmMenor])
+                   indiceTrmMenor=i;
+
+           }
+
+
+
+       }
+
+
+
+
+       //Impresion
+        for(int i=0;i<n-1;i++){
+            System.out.printf("x1:%6.1f y1:%6.1f z1:%6.1f x2:%6.1f y2:%6.1f z2:%6.1f t:%6.1f d:%6.1f v:%6.1f \n"
+                    ,recorrido[i][0],recorrido[i][1],recorrido[i][2],
+                    recorrido[i+1][0],recorrido[i+1][1],recorrido[i+1][2],tiempo[i],distancia[i],velocidad[i]);
+        }
+
+        System.out.printf("Tramo de mayor velocidad es %d, con una velocidad= %.1f \n",indiceTrmMayor+1,velocidad[indiceTrmMayor]);
+        System.out.printf("Tramo de menor velocidad es %d, con una velocidad= %.1f \n",indiceTrmMenor+1,velocidad[indiceTrmMenor]);
+        System.out.printf("La velocidad promedio es: %.1f",vlcPromedio/cntValidos);
+    }
+
+
+
+}
+*/modelo*/
