@@ -38,10 +38,10 @@ public class Mascota {
         }
 
         static void mostrarMascota(int i){
-            codigo[i] + " , " + nombre[i] + " , "
-            + edad[i] + " meses , vacunada: " + (vacunada[i] ? "Si" : "No")
-            + " , apta para adopcion: " + (cumpleCondiciones(i) ? "Si" : "No"));
-            + (especie[i] == 1 ? "Perro" : "Gato") + " , "
+        System.out.println(codigo[i] + " , " + nombre[i] + " , "
+                + (especie[i] == 1 ? "Perro" : "Gato") + " , "
+                + edad[i] + " meses , vacunada: " + (vacunada[i] ? "Si" : "No")
+                + " , apta para adopcion: " + (cumpleCondiciones(i) ? "Si" : "No"));
         }
 
 
