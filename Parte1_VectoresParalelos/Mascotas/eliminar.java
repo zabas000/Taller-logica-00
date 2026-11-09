@@ -29,7 +29,7 @@ public class Refugio {
         return estaDisponible(i) && edad[i] >= 3 && vacunada[i];
     }
 
-    static boolean codigoRepetido(int cod, int hasta) {
+    -----static boolean codigoRepetido(int cod, int hasta) {
         for (int j = 0; j < hasta; j++) {
             if (codigo[j] == cod) return true;
         }
@@ -95,7 +95,8 @@ public class Refugio {
     // 3. Vacunacion
     static void registrarVacunacion() {
         System.out.print("Codigo: ");
-        int pos = buscarPorCodigo(sc.nextInt());
+        int code = sc.nextInt();
+        int pos = buscarPorCodigo(code);
         if (pos == -1) {
             System.out.println("Codigo no encontrado.");
         } else if (vacunada[pos]) {
