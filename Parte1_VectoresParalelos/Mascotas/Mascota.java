@@ -4,6 +4,7 @@ public class Mascota {
 
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         int opcion = 0;
         while (opcion!=5) {
             System.out.print("1 Ver disponibles");
@@ -38,6 +39,10 @@ public class Mascota {
 
         }
     }
+
+    
+
+
         Scanner sc = new Scanner(System.in);
         int m = 15;
         String[] nombre = new  String [m];
@@ -111,15 +116,6 @@ public class Mascota {
 
         //3
 
-
-
-
-
-
-
-
-        
-        
         
         public static int verDisponibles( ){
             int c = 0;
@@ -138,7 +134,7 @@ public class Mascota {
 
 
 
-    }
+
 
 }
 
