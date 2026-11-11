@@ -75,6 +75,7 @@ public class Mascota {
     }
 
     // menu-metodos
+    
     // 1
     static void verDisponibles() {
         int c = 0;
@@ -102,68 +103,7 @@ public class Mascota {
     }
 
     // 3
-    static void adoptar() {
-        System.out.print("Codigo: ");
-        int pos = buscarPorCodigo(sc.nextInt());
-        if (pos == -1) {
-            System.out.println("Codigo no encontrado.");
-        } else if (adoptada[pos]) {
-            System.out.println("Rechazada: ya fue adoptada.");
-        } else if (edad[pos] < 3) {
-            System.out.println("Rechazada: tiene menos de 3 meses.");
-        } else if (!vacuna[pos]) {
-            System.out.println("Rechazada: no esta vacunada.");
-        } else {
-            adoptada[pos] = true;
-            System.out.println("Adopcion autorizada.");
-        }
-    }
 
-    // 4
-    static void buscar() {
-        System.out.print("Especie (1 perro, 2 gato): ");
-        int esp = sc.nextInt();
-        System.out.print("Edad maxima en meses: ");
-        int max = sc.nextInt();
-        int c = 0;
-        for (int i = 0; i < m; i++) {
-            if (cumpleCondiciones(i) && especie[i] == esp && edad[i] <= max) {
-                mostrarMascota(i);
-                c++;
-            }
-        }
-        if (c == 0) System.out.println("No hay mascotas que cumplan los criterios.");
-    }
-
-    // 5. resumen final
-    static void resumenFinal() {
-        int perros = 0, gatos = 0, sinVacuna = 0, mayor = -1;
-        for (int i = 0; i < m; i++) {
-            if (adoptada[i]) {
-                if (especie[i] == 1) perros++;
-                else gatos++;
-            } else {
-                if (!vacuna[i]) sinVacuna++;
-                if (edad[i] > mayor) mayor = edad[i];
-            }
-        }
-
-        System.out.println("\nPerros adoptados: " + perros);
-        System.out.println("Gatos adoptados: " + gatos);
-        System.out.println("Disponibles sin vacunar: " + sinVacuna);
-
-        if (mayor == -1) {
-            System.out.println("No quedan mascotas disponibles.");
-        } else {
-            System.out.println("Mayor edad disponible (" + mayor + " meses):");
-            for (int i = 0; i < m; i++) {
-                if (!adoptada[i] && edad[i] == mayor)
-                    System.out.println(" - " + codigo[i] + " " + nombre[i]);
-            }
-        }
-
-        System.out.println("Porcentaje adoptado: " + ((perros + gatos) * 100.0 / m) + "%");
-    }
 
     //main
     public static void main(String[] args) {
