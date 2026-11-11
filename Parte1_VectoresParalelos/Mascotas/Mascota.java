@@ -47,7 +47,9 @@ public class Mascota {
         codigo[4] = 105; nombre[4] = "Toby";  especie[4] = 1; edad[4] = 1;  vacuna[4] = false;
 
         // 10 teclado
-        for (int i = 5; i < m; i++) {
+        int i=5;
+        boolean continuar = true;
+        while (continuar && i < 15 ) {
             System.out.println("Mascota " + (i + 1));
 
             do {
@@ -70,9 +72,13 @@ public class Mascota {
 
             System.out.print("Vacunada (1 si, 0 no): ");
             vacuna[i] = sc.nextInt() == 1;
+
+            System.out.print("Desea registrar otra mascota? (1 si, 0 no): ");
+            continuar = sc.nextInt() == 1;
+            i++;
+            }
         }
-        // adoptada empieza en false para todas
-    }
+       
 
     // menu-metodos
     
@@ -101,8 +107,13 @@ public class Mascota {
             System.out.println("Vacunacion registrada.");
         }
     }
-
     // 3
+    static void buscar(){
+        System.out.print("especie( 1 perro ; 2 gato)");
+        int esp = sc.nextInt();
+        System.out.print("edad maxima en meses");
+        int edadMax = sc.nextInt();
+    }
 
 
     //main
