@@ -40,14 +40,13 @@ public class Mascota {
 
     //datos iniciales
     static void registrarDatosIniciales() {
-        // 5 mascotas fijas
         codigo[0] = 101; nombre[0] = "Max";   especie[0] = 1; edad[0] = 12; vacuna[0] = true;
         codigo[1] = 102; nombre[1] = "Luna";  especie[1] = 2; edad[1] = 2;  vacuna[1] = false;
         codigo[2] = 103; nombre[2] = "Rocky"; especie[2] = 1; edad[2] = 5;  vacuna[2] = true;
         codigo[3] = 104; nombre[3] = "Mia";   especie[3] = 2; edad[3] = 8;  vacuna[3] = true;
         codigo[4] = 105; nombre[4] = "Toby";  especie[4] = 1; edad[4] = 1;  vacuna[4] = false;
 
-        // 10 mascotas por teclado
+        // 10 teclado
         for (int i = 5; i < m; i++) {
             System.out.println("Mascota " + (i + 1));
 
