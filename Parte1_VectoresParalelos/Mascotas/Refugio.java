@@ -29,7 +29,7 @@ public class Refugio {
         return estaDisponible(i) && edad[i] >= 3 && vacunada[i];
     }
 
-    -----static boolean codigoRepetido(int cod, int hasta) {
+    static boolean codigoRepetido(int cod, int hasta) {
         for (int j = 0; j < hasta; j++) {
             if (codigo[j] == cod) return true;
         }
@@ -128,12 +128,12 @@ public class Refugio {
     // 5. Busqueda por especie y edad maxima
     static void buscarPorEspecieYEdad() {
         System.out.print("Especie (1 perro, 2 gato): ");
-        int esp = sc.nextInt();
+        int espIngre = sc.nextInt();
         System.out.print("Edad maxima en meses: ");
         int max = sc.nextInt();
         int c = 0;
         for (int i = 0; i < N; i++) {
-            if (cumpleCondiciones(i) && especie[i] == esp && edad[i] <= max) {
+            if (cumpleCondiciones(i) && especie[i] == espIngre && edad[i] <= max) {
                 mostrarMascota(i);
                 c++;
             }

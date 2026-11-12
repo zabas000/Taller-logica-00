@@ -38,16 +38,26 @@ public class Mascota {
                 + " , apta para adopcion: " + (cumpleCondiciones(i) ? "Si" : "No"));
     }
 
+    static int contarM(int tipo){
+        int c = 0;
+        for (int i = 0; i < m; i++) {
+            if (especie[i] == tipo && !adoptada[i]) 
+                c++;
+        }
+        return c;
+    }
+
     //datos iniciales
     static void registrarDatosIniciales() {
-        codigo[0] = 101; nombre[0] = "Max";   especie[0] = 1; edad[0] = 12; vacuna[0] = true;
-        codigo[1] = 102; nombre[1] = "Luna";  especie[1] = 2; edad[1] = 2;  vacuna[1] = false;
-        codigo[2] = 103; nombre[2] = "Rocky"; especie[2] = 1; edad[2] = 5;  vacuna[2] = true;
-        codigo[3] = 104; nombre[3] = "Mia";   especie[3] = 2; edad[3] = 8;  vacuna[3] = true;
-        codigo[4] = 105; nombre[4] = "Toby";  especie[4] = 1; edad[4] = 1;  vacuna[4] = false;
+        codigo[0] = 101; nombre[0] = "Max";   especie[0] = 1; edad[0] = 12; vacuna[0] = true;  adoptada[0] = false;
+        codigo[1] = 102; nombre[1] = "Luna";  especie[1] = 2; edad[1] = 2;  vacuna[1] = false; adoptada[1] = true;
+        codigo[2] = 103; nombre[2] = "Rocky"; especie[2] = 1; edad[2] = 5;  vacuna[2] = true;  adoptada[2] = false;
+        codigo[3] = 104; nombre[3] = "Mia";   especie[3] = 2; edad[3] = 8;  vacuna[3] = true;  adoptada[3] = true;
+        codigo[4] = 105; nombre[4] = "Toby";  especie[4] = 1; edad[4] = 1;  vacuna[4] = false; adoptada[4] = true;
 
         // 10 teclado
         int i=5;
+        cantidadM = 5;
         boolean continuar = true;
         while (continuar && i < 15 ) {
             System.out.println("Mascota " + (i + 1));
@@ -73,9 +83,13 @@ public class Mascota {
             System.out.print("Vacunada (1 si, 0 no): ");
             vacuna[i] = sc.nextInt() == 1;
 
+            System.out.print("Adoptada (1 si, 0 no): ");
+            adoptada[i] = sc.nextInt() == 1;
+
             System.out.print("Desea registrar otra mascota? (1 si, 0 no): ");
             continuar = sc.nextInt() == 1;
             i++;
+            cantidadM = i;
             }
         }
        
@@ -85,7 +99,7 @@ public class Mascota {
     // 1
     static void verDisponibles() {
         int c = 0;
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < m; i++) { 
             if (!adoptada[i]) {
                 mostrarMascota(i);
                 c++;
@@ -107,13 +121,47 @@ public class Mascota {
             System.out.println("Vacunacion registrada.");
         }
     }
-    // 3
-    static void buscar(){
+  
+    //3
+   static void adoptar(){
+    System.out.print("Ingrese el codigo");
+    int code = buscarPorCodigo(sc.nextInt());
+        //indice 
+
+    if(code != -1){
+        System.out.println("Mascota no encontrada");
+   }else if(adoptada[code]){
+        System.out.println("Mascota ya adoptada");
+   }else if(!adoptada[code] && edad[code] >= 3 && vacuna[code] == true){
+        System.out.println("Mascota apta para adopcion");
+        adoptada[code] = true;
+   }else{
+        System.out.println("Mascota no apta para adopcion");
+   }
+ }
+  
+    // 4
+    static void buscarTipoEdad(){
         System.out.print("especie( 1 perro ; 2 gato)");
         int esp = sc.nextInt();
         System.out.print("edad maxima en meses");
         int edadMax = sc.nextInt();
+
+        for(int i = 0 ; i < m ; i++){
+            if(cumpleCondiciones(i) && especie[i] == esp && edad[i] <= edadMax){
+                mostrarMascota(i);
+            }
+
+        }
     }
+
+   //5
+   static void resumenFinal(){
+    System.out.println("Resumen final");
+    System.out.println("Total de mascotas: " + cantidadM);
+    System.out.println("Perros disponibles: " + contarM(1));
+    System.out.println("Gatos disponibles: " + contarM(2));
+   } 
 
 
     //main
@@ -141,7 +189,7 @@ public class Mascota {
                     adoptar();
                     break;
                 case 4:
-                    buscar();
+                    buscarTipoEdad();
                     break;
                 case 5:
                     resumenFinal();
@@ -152,3 +200,4 @@ public class Mascota {
         }
     }
 }
+//nuevo
