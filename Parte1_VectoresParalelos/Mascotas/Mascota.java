@@ -64,6 +64,8 @@ static void mostrarMascota(int i) {
         // 10 teclado
         int i=5;
         boolean continuar = true;
+        System.out.println("¿Desea registrar mascotas? (1 si, 0 no): ");
+        continuar = sc.nextInt() == 1;
         while (continuar && i < 15 ) {
             System.out.println("Mascota " + (i + 1));
 
@@ -179,22 +181,28 @@ static void mostrarMascota(int i) {
     for(int i = 0 ; i < cantidadM ; i++){
         if(!adoptada[i] && !vacuna[i]){
         noVacunadas++;
+    }        
     }
 
-        if(!adoptada[i] && edad[i] > mMayorEdad){
-            mMayorEdad = edad[i];
-            System.out.println("La mascota de mayor edad es " + nombre[i] + " con " + mMayorEdad + " meses");
+    for(int i = 1 ; i < cantidadM ; i++){
+        if(adoptada[i])
+            continue;
+        if( edad[i] >edad[ mMayorEdad]){
+            mMayorEdad = i;
         }
-
         
     }
-    System.out.println("Mascotas no vacunadas: " + noVacunadas);
+    System.out.println("La mascota de mayor edad es " + nombre[mMayorEdad] + " con " + edad[mMayorEdad] + " meses");
+
 
     for(int i = 0 ; i < cantidadM ; i++){
         if(!adoptada[i] && edad[i] == mMayorEdad){
             mostrarMascota(i); //todas las componentes (preguntar a Diana)
         }
+        
     }
+      System.out.println("Mascotas no vacunadas: " + noVacunadas);
+    
 }
 
     //6
@@ -233,7 +241,7 @@ static void mostrarMascota(int i) {
                     break;
                 case 5:
                     resumenFinal();
-                    System.out.println("Porcentaje adoptado: " + porcentaje() + "%");
+                    System.out.printf("Porcentaje adoptado: %.0f%%\n", porcentaje());
                     break;
                 default:
                     System.out.println("Opcion invalida");
