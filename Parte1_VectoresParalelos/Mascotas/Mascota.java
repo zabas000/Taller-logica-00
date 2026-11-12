@@ -57,7 +57,7 @@ public class Mascota {
 
         // 10 teclado
         int i=5;
-        cantidadM = 5;
+        int cantidadM = 5;
         boolean continuar = true;
         while (continuar && i < 15 ) {
             System.out.println("Mascota " + (i + 1));
@@ -89,10 +89,10 @@ public class Mascota {
             System.out.print("Desea registrar otra mascota? (1 si, 0 no): ");
             continuar = sc.nextInt() == 1;
             i++;
-            cantidadM = i;
+            cantidadM++;
             }
         }
-       
+
 
     // menu-metodos
     
@@ -121,25 +121,25 @@ public class Mascota {
             System.out.println("Vacunacion registrada.");
         }
     }
-  
+
     //3
-   static void adoptar(){
+static void adoptar(){
     System.out.print("Ingrese el codigo");
     int code = buscarPorCodigo(sc.nextInt());
-        //indice 
+        //indice
 
     if(code != -1){
         System.out.println("Mascota no encontrada");
-   }else if(adoptada[code]){
+    }else if(adoptada[code]){
         System.out.println("Mascota ya adoptada");
-   }else if(!adoptada[code] && edad[code] >= 3 && vacuna[code] == true){
+    }else if(!adoptada[code] && edad[code] >= 3 && vacuna[code] == true){
         System.out.println("Mascota apta para adopcion");
         adoptada[code] = true;
-   }else{
+    }else{
         System.out.println("Mascota no apta para adopcion");
-   }
- }
-  
+        }
+    }
+
     // 4
     static void buscarTipoEdad(){
         System.out.print("especie( 1 perro ; 2 gato)");
@@ -156,12 +156,27 @@ public class Mascota {
     }
 
    //5
-   static void resumenFinal(){
+    static void resumenFinal(){
     System.out.println("Resumen final");
-    System.out.println("Total de mascotas: " + cantidadM);
     System.out.println("Perros disponibles: " + contarM(1));
     System.out.println("Gatos disponibles: " + contarM(2));
-   } 
+        int noVacunadas = 0;
+        int mMayorEdad = 0;
+    for(int i = 0 ; i < m ; i++){
+        if(!adoptada[i] && !vacuna[i]){
+        noVacunadas++;
+    }
+
+        while(edad[i] > mMayorEdad){
+            mMayorEdad = edad[i];
+        }
+
+        
+    }
+    System.out.println("Mascotas no vacunadas: " + noVacunadas);
+}
+
+    //6
 
 
     //main
