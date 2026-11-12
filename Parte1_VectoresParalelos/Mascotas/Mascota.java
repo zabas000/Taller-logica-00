@@ -39,12 +39,12 @@ public class Mascota {
     }
 
     static int contarM(int tipo){
-        int c = 0;
+        int cantidad = 0;
         for (int i = 0; i < m; i++) {
-            if (especie[i] == tipo && !adoptada[i]) 
-                c++;
+            if (especie[i] == tipo && adoptada[i]) 
+                cantidad++;
         }
-        return c;
+        return cantidad;
     }
 
     //datos iniciales
@@ -123,17 +123,16 @@ public class Mascota {
     }
 
     //3
-static void adoptar(){
+    static void adoptar(){
     System.out.print("Ingrese el codigo");
     int code = buscarPorCodigo(sc.nextInt());
-        //indice
-
-    if(code != -1){
+    //indice
+    if(code == -1){
         System.out.println("Mascota no encontrada");
     }else if(adoptada[code]){
         System.out.println("Mascota ya adoptada");
     }else if(!adoptada[code] && edad[code] >= 3 && vacuna[code] == true){
-        System.out.println("Mascota apta para adopcion");
+        System.out.println("Mascota apta para adopcion -adoptada");
         adoptada[code] = true;
     }else{
         System.out.println("Mascota no apta para adopcion");
@@ -158,8 +157,8 @@ static void adoptar(){
    //5
     static void resumenFinal(){
     System.out.println("Resumen final");
-    System.out.println("Perros disponibles: " + contarM(1));
-    System.out.println("Gatos disponibles: " + contarM(2));
+    System.out.println("Perros adoptados: " + contarM(1));
+    System.out.println("Gatos adoptados: " + contarM(2));
         int noVacunadas = 0;
         int mMayorEdad = 0;
     for(int i = 0 ; i < m ; i++){
@@ -167,16 +166,27 @@ static void adoptar(){
         noVacunadas++;
     }
 
-        while(edad[i] > mMayorEdad){
+        if(!adoptada[i] && edad[i] > mMayorEdad){
             mMayorEdad = edad[i];
+            System.out.print("La mascota de mayor edad es " + nombre[i] + " con " + mMayorEdad + " meses");
         }
 
         
     }
     System.out.println("Mascotas no vacunadas: " + noVacunadas);
+
+    for(int i = 0 ; i < m ; i++){
+        if(!adoptada[i] && edad[i] == mMayorEdad){
+            mostrarMascota(i); //todas las componentes (preguntar a Diana)
+        }
+    }
 }
 
     //6
+    static double porcentaje() {
+        int adoptadas = contarM(1) + contarM(2);
+        return adoptadas * 100.0 / m;
+    }
 
 
     //main
@@ -189,7 +199,7 @@ static void adoptar(){
             System.out.println("2 Registrar vacunacion");
             System.out.println("3 Adoptar");
             System.out.println("4 Buscar por especie y edad maxima");
-            System.out.println("5 Terminar");
+            System.out.println("5 Resumen");
             System.out.print("Opcion: ");
             opcion = sc.nextInt();
 
@@ -208,6 +218,7 @@ static void adoptar(){
                     break;
                 case 5:
                     resumenFinal();
+                    System.out.println("Porcentaje adoptado: " + porcentaje() + "%");
                     break;
                 default:
                     System.out.println("Opcion invalida");
@@ -215,4 +226,3 @@ static void adoptar(){
         }
     }
 }
-//nuevo
