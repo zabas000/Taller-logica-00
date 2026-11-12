@@ -12,9 +12,12 @@ public class Mascota {
     static boolean[] adoptada = new boolean[m]; // false = disponible
     static int[] codigo = new int[m];
 
+
+    static  int  cantidadM = 5; // cantidad de mascotas registradas
+    
     //mini-metodos
     static int buscarPorCodigo(int cod) {
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < cantidadM; i++) {
             if (codigo[i] == cod) return i;
         }
         return -1;
@@ -27,20 +30,23 @@ public class Mascota {
         return false;
     }
 
+    //apta = disponible, edad >= 3, vacunada
     static boolean cumpleCondiciones(int i) {
         return !adoptada[i] && edad[i] >= 3 && vacuna[i];
     }
 
-    static void mostrarMascota(int i) {
-        System.out.println(codigo[i] + " , " + nombre[i] + " , "
-                + (especie[i] == 1 ? "Perro" : "Gato") + " , "
-                + edad[i] + " meses , vacunada: " + (vacuna[i] ? "Si" : "No")
-                + " , apta para adopcion: " + (cumpleCondiciones(i) ? "Si" : "No"));
-    }
+static void mostrarMascota(int i) {
+    System.out.printf("%-8d %-10s %-8s %-8d %-10s %s%n",
+            codigo[i], nombre[i],
+            (especie[i] == 1 ? "Perro" : "Gato"),
+            edad[i],
+            (vacuna[i] ? "Si" : "No"),
+            (cumpleCondiciones(i) ? "Si" : "No"));
+}
 
     static int contarM(int tipo){
         int cantidad = 0;
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < cantidadM; i++) {
             if (especie[i] == tipo && adoptada[i]) 
                 cantidad++;
         }
@@ -49,15 +55,14 @@ public class Mascota {
 
     //datos iniciales
     static void registrarDatosIniciales() {
-        codigo[0] = 101; nombre[0] = "Max";   especie[0] = 1; edad[0] = 12; vacuna[0] = true;  adoptada[0] = false;
-        codigo[1] = 102; nombre[1] = "Luna";  especie[1] = 2; edad[1] = 2;  vacuna[1] = false; adoptada[1] = true;
-        codigo[2] = 103; nombre[2] = "Rocky"; especie[2] = 1; edad[2] = 5;  vacuna[2] = true;  adoptada[2] = false;
+        codigo[0] = 101; nombre[0] = "Max";   especie[0] = 1; edad[0] = 12; vacuna[0] = true;  adoptada[0] = true;
+        codigo[1] = 102; nombre[1] = "Luna";  especie[1] = 2; edad[1] = 2;  vacuna[1] = false; adoptada[1] = false;
+        codigo[2] = 103; nombre[2] = "Rocky"; especie[2] = 1; edad[2] = 5;  vacuna[2] = true;  adoptada[2] = true;
         codigo[3] = 104; nombre[3] = "Mia";   especie[3] = 2; edad[3] = 8;  vacuna[3] = true;  adoptada[3] = true;
-        codigo[4] = 105; nombre[4] = "Toby";  especie[4] = 1; edad[4] = 1;  vacuna[4] = false; adoptada[4] = true;
+        codigo[4] = 105; nombre[4] = "Toby";  especie[4] = 1; edad[4] = 3;  vacuna[4] = false; adoptada[4] = false;
 
         // 10 teclado
         int i=5;
-        int cantidadM = 5;
         boolean continuar = true;
         while (continuar && i < 15 ) {
             System.out.println("Mascota " + (i + 1));
@@ -95,11 +100,14 @@ public class Mascota {
 
 
     // menu-metodos
-    
     // 1
     static void verDisponibles() {
+        System.out.println("\n--------------- MASCOTAS DISPONIBLES ---------------");
+        System.out.printf("%-8s %-10s %-8s %-8s %-10s %s%n",
+                "Codigo", "Nombre", "Especie", "Meses", "Vacunada", "Apta");
+        System.out.println("------------------------------------------------------");
         int c = 0;
-        for (int i = 0; i < m; i++) { 
+        for (int i = 0; i < cantidadM; i++) { 
             if (!adoptada[i]) {
                 mostrarMascota(i);
                 c++;
@@ -110,15 +118,15 @@ public class Mascota {
 
     // 2
     static void vacunar() {
-        System.out.print("Codigo: ");
+        System.out.print("Codigo de la mascota: ");
         int pos = buscarPorCodigo(sc.nextInt());
         if (pos == -1) {
             System.out.println("Codigo no encontrado.");
         } else if (vacuna[pos]) {
-            System.out.println("Ya esta vacunada. Datos conservados.");
+            System.out.println("Resultados: "+nombre[pos] + " ya esta vacunada. Datos conservados");
         } else {
             vacuna[pos] = true;
-            System.out.println("Vacunacion registrada.");
+            System.out.println("Vacunacion registrada para " + nombre[pos]);
         }
     }
 
@@ -126,13 +134,12 @@ public class Mascota {
     static void adoptar(){
     System.out.print("Ingrese el codigo");
     int code = buscarPorCodigo(sc.nextInt());
-    //indice
     if(code == -1){
         System.out.println("Mascota no encontrada");
     }else if(adoptada[code]){
-        System.out.println("Mascota ya adoptada");
+        System.out.println("La mascota " + nombre[code] + " ya esta adoptada");
     }else if(!adoptada[code] && edad[code] >= 3 && vacuna[code] == true){
-        System.out.println("Mascota apta para adopcion -adoptada");
+        System.out.println("Mascota " + nombre[code] + " apta para adopcion -adoptada");
         adoptada[code] = true;
     }else{
         System.out.println("Mascota no apta para adopcion");
@@ -141,41 +148,49 @@ public class Mascota {
 
     // 4
     static void buscarTipoEdad(){
-        System.out.print("especie( 1 perro ; 2 gato)");
+        System.out.print("Especie( 1 perro ; 2 gato): ");
         int esp = sc.nextInt();
-        System.out.print("edad maxima en meses");
+        System.out.print("Edad maxima en meses: ");
         int edadMax = sc.nextInt();
 
-        for(int i = 0 ; i < m ; i++){
+        System.out.println();
+        System.out.printf("%-8s %-10s %-8s %-8s %-10s %s%n",
+                "Codigo", "Nombre", "Especie", "Meses", "Vacunada", "Apta");
+        System.out.println("------------------------------------------------------");
+
+        int c = 0;
+        for(int i = 0 ; i < cantidadM ; i++){
             if(cumpleCondiciones(i) && especie[i] == esp && edad[i] <= edadMax){
                 mostrarMascota(i);
+                c++;
             }
 
         }
+        if(c == 0) System.out.println("No hay mascotas disponibles");
     }
 
    //5
     static void resumenFinal(){
-    System.out.println("Resumen final");
+    System.out.println("\nResumen final");
     System.out.println("Perros adoptados: " + contarM(1));
     System.out.println("Gatos adoptados: " + contarM(2));
         int noVacunadas = 0;
         int mMayorEdad = 0;
-    for(int i = 0 ; i < m ; i++){
+    for(int i = 0 ; i < cantidadM ; i++){
         if(!adoptada[i] && !vacuna[i]){
         noVacunadas++;
     }
 
         if(!adoptada[i] && edad[i] > mMayorEdad){
             mMayorEdad = edad[i];
-            System.out.print("La mascota de mayor edad es " + nombre[i] + " con " + mMayorEdad + " meses");
+            System.out.println("La mascota de mayor edad es " + nombre[i] + " con " + mMayorEdad + " meses");
         }
 
         
     }
     System.out.println("Mascotas no vacunadas: " + noVacunadas);
 
-    for(int i = 0 ; i < m ; i++){
+    for(int i = 0 ; i < cantidadM ; i++){
         if(!adoptada[i] && edad[i] == mMayorEdad){
             mostrarMascota(i); //todas las componentes (preguntar a Diana)
         }
@@ -185,7 +200,7 @@ public class Mascota {
     //6
     static double porcentaje() {
         int adoptadas = contarM(1) + contarM(2);
-        return adoptadas * 100.0 / m;
+        return adoptadas * 100.0 / cantidadM;
     }
 
 
@@ -196,7 +211,7 @@ public class Mascota {
         int opcion = 0;
         while (opcion != 5) {
             System.out.println("\n1 Ver disponibles");
-            System.out.println("2 Registrar vacunacion");
+            System.out.println("2 Registrar Vacunacion");
             System.out.println("3 Adoptar");
             System.out.println("4 Buscar por especie y edad maxima");
             System.out.println("5 Resumen");
@@ -226,3 +241,9 @@ public class Mascota {
         }
     }
 }
+
+
+
+
+//Una mascota está disponible cuando no ha sido adoptada
+// apta para adopción cuando está disponible, tiene 3 o más meses de edad y está vacunada.
