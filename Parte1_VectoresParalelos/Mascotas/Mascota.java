@@ -218,7 +218,7 @@ static void mostrarMascota(int i) {
         registrarDatosIniciales();
 
         int opcion = 0;
-        while (opcion != 5) {
+        while (opcion < 6) {
             System.out.println("\n1 Ver disponibles");
             System.out.println("2 Registrar Vacunacion");
             System.out.println("3 Adoptar");
@@ -250,9 +250,6 @@ static void mostrarMascota(int i) {
         }
     }
 }
-
-
-
 
 //Una mascota está disponible cuando no ha sido adoptada
 // apta para adopción cuando está disponible, tiene 3 o más meses de edad y está vacunada.

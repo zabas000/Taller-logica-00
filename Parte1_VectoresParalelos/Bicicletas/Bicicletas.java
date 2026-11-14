@@ -19,7 +19,7 @@ static boolean codigoRepetido(int cod, int hasta) {
     }
 
 static int menorPrestamos(int estacionbici){
-    int menor = 99;
+    int menor = 999;
     int pos = -1;
     for (int i = 0; i < b; i++) {
         if (estacion[i] == estacionbici && estado[i] == 1 && cantPrestamos[i] < menor) {
@@ -84,12 +84,12 @@ static void registrarDatosiniciales(){
     }
 
     //2
-    static boolean registrarDevolucion(int bicicleta , int parada){
+    static boolean registrarDevolucion(int codigoBicicleta , int parada){
         int c = 0;
         int posicion= -1;
         for(int i = 0; i < b; i++){
             c += (estacion[i] == parada && estado[i] == 1) ? 1 : 0;
-            if(codigo[i] == bicicleta && estado[i] == 2){
+            if(codigo[i] == codigoBicicleta && estado[i] == 2){
                 posicion = i;
             }
         }
@@ -181,7 +181,7 @@ static void registrarDatosiniciales(){
         registrarDatosiniciales();
 
         int opcion = 0;
-        while (opcion != 6) {
+        while (opcion < 7) {
             System.out.println("\n1 Prestar una bicicleta");
             System.out.println("2 Devolver una bicicleta");
             System.out.println("3 Enviar a mantenimiento");
@@ -233,8 +233,3 @@ static void registrarDatosiniciales(){
 //para despues :
 //preguntar si esta disponible , si si lo esta enviar a mantenimiento, si no esta disponible no se puede enviar a mantenimiento
 //preguntar si esta en mantenimiento, si si lo esta habilitarla, si no esta en mantenimiento no se puede habilitar
-
-
-//explicarle a Dumnar
-//1 registar devolucion
-//2 cuntas bicis disponibles hay en cada estacion
