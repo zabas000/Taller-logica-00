@@ -6,41 +6,52 @@ public class Bicicletas {
     static int b = 12;
 
     static int[] codigo = new int [b];
-    static int[] cantPrestamos = new int [b];// num
+    static int[] cantPrestamos = new int [b];
     static int[] estado = new int [b];// 1 disponible, 2 prestada, 3 mantenimiento
     static int[] estacion = new int [b];// 4 estacionamientos (1,2,3,4)
 
     //mini-metodos
-    static boolean codigoRepetido(int cod, int hasta) {
+static boolean codigoRepetido(int cod, int hasta) {
         for (int j = 0; j < hasta; j++) {
             if (codigo[j] == cod) return true;
         }
         return false;
     }
 
-    static int menorPrestamos(int estacionbici){
-        int menor = 99;
-        for (int i = 0; i < b; i++) {
-            if (estacion[i] == estacionbici && estado[i] == 1 && cantPrestamos[i] < menor) {
-                menor = cantPrestamos[i];
-                return i;
-            }
+static int menorPrestamos(int estacionbici){
+    int menor = 99;
+    int pos = -1;
+    for (int i = 0; i < b; i++) {
+        if (estacion[i] == estacionbici && estado[i] == 1 && cantPrestamos[i] < menor) {
+            menor = cantPrestamos[i];
+            pos = i;
         }
-        return -1; // Código no encontrado
     }
+    return pos;   // posicion de la bicicleta elegida, o -1 si no hay ninguna
+}
 
-    static String nombreEstado(int i) {
+static String nombreEstado(int i) {
     if (estado[i] == 1) return "Disponible";
     if (estado[i] == 2) return "Prestada";
     return "En mantenimiento";
-}
+    }
 
 static void mostrarBicicleta(int i) {
     System.out.printf("%-18d %-10d %-18s %-2d%n",
             codigo[i], cantPrestamos[i], nombreEstado(i), estacion[i]);
 }
 
-    static void registrarDatosiniciales(){
+static int bicisDisponiblesEstacion(int estacionbici){
+    int count = 0;
+    for (int i = 0; i < b; i++) {
+        if (estacion[i] == estacionbici && estado[i] == 1) {
+            count++;
+        }
+    }
+    return count;
+}
+
+static void registrarDatosiniciales(){
         codigo[0] = 101; cantPrestamos[0] = 0; estado[0] = 1; estacion[0] = 1;
         codigo[1] = 102; cantPrestamos[1] = 0; estado[1] = 1; estacion[1] = 1;
         codigo[2] = 103; cantPrestamos[2] = 0; estado[2] = 1; estacion[2] = 1;
@@ -54,36 +65,38 @@ static void mostrarBicicleta(int i) {
         codigo[10] = 111;cantPrestamos[10] = 0;estado[10] = 1;estacion[10] =4;
         codigo[11] = 112;cantPrestamos[11] = 0;estado[11] = 1;estacion[11] =4;
     }
+    
+    
     //menu
     //1 prestamo
-    //revisar
+    //repasar
     static void prestarBicicleta() {
         System.out.print("Ingrese la estación donde quiere prestar: ");
         int est = sc.nextInt();
-        int i = menorPrestamos(est);
-        if (estado[i] == 1) {
-            estado[i] = 2;
-            cantPrestamos[i]++;
-            System.out.println("Bicicleta prestada exitosamente"+ " Codigo: " + codigo[i]);
+        int pos = menorPrestamos(est);
+        if (pos != -1) {
+            estado[pos] = 2;
+            cantPrestamos[pos]++;
+            System.out.println("Bicicleta prestada exitosamente. Codigo: " + codigo[pos]);
         } else {
-            System.out.println("Bicicleta no disponible para prestar");
+            System.out.println("No hay bicicletas disponibles en la estacion " + est + ".");
         }
     }
 
     //2
-    //revisar
     static boolean registrarDevolucion(int bicicleta , int parada){
         int c = 0;
         int posicion= -1;
         for(int i = 0; i < b; i++){
-            c += (estacion[i] == bicicleta && estado[i] == 2) ? 1 : 0;
-            if(estacion[i] == bicicleta && estado[i] == 2){
+            c += (estacion[i] == parada && estado[i] == 1) ? 1 : 0;
+            if(codigo[i] == bicicleta && estado[i] == 2){
                 posicion = i;
             }
         }
 
         if(c < 3){
             estacion[posicion] = parada;
+            estado[posicion] = 1;
             return true;
         }else {
             return false;
@@ -123,7 +136,7 @@ static void mostrarBicicleta(int i) {
         }
     }
     
-    //5 
+    //5
     static void verDisponibles(){
         System.out.printf("%-18s %-10s %-18s %-2s%n", "Codigo", "Prestamos", "Estado", "Estacion");
         for (int i = 0; i < b; i++) {
@@ -134,22 +147,21 @@ static void mostrarBicicleta(int i) {
     }
 
     //6
-    //revisar
     static void resumenFinal(){
         int canDispo = 0;
-        for (int i = 0; i < b; i++) {
-            if(estado[i] == 1) {
-                canDispo++;
-            }
+        for (int i = 0; i < 4; i++) {
+            canDispo = bicisDisponiblesEstacion(i + 1);
+            System.out.println("Total de bicicletas disponibles en la estacion " + (i + 1) + ": " + canDispo);
         }
-        System.out.println("Total de bicicletas disponibles: " + canDispo);
+        
+
         int canPres = 0;
         for(int i = 0; i < b; i++) {
             if(estado[i] == 2) {
                 canPres++;
             }
         }
-        System.out.println("Total de bicicletas prestadas: " + canPres);
+        System.out.println("\nTotal de bicicletas prestadas: " + canPres);
 
         int mayorPrestamos = -1;
         for(int i = 0; i < b; i++) {
@@ -159,12 +171,10 @@ static void mostrarBicicleta(int i) {
         }
         for(int i = 0; i < b; i++) {
             if(cantPrestamos[i] == cantPrestamos[mayorPrestamos]) {
-                System.out.println("Bicicleta con mayor cantidad de préstamos: " + codigo[i]);
+                System.out.println("\nBicicleta con mayor cantidad de préstamos: " + codigo[i]);
             }
         }
     }
-
-
 
     //main
     public static void main(String[] args) {
@@ -186,10 +196,11 @@ static void mostrarBicicleta(int i) {
                     prestarBicicleta();
                     break;
                 case 2:
-                    System.out.print("Ingrese el codigo de la bicicleta y la estacion a devolver: ");
-                    int bicicleta = sc.nextInt();
                     System.out.print("Ingrese la estacion a devolver: ");
                     int parada = sc.nextInt();
+                    System.out.print("Ingrese el codigo de la bicileta: ");
+                    int bicicleta = sc.nextInt();
+                    registrarDevolucion(bicicleta, parada);
                     if(registrarDevolucion(bicicleta, parada)== true) {
                         System.out.println("Devolucion registrada exitosamente");
                     } else {
@@ -214,7 +225,6 @@ static void mostrarBicicleta(int i) {
             }
         }
     }
-
     
 }
 
@@ -223,3 +233,8 @@ static void mostrarBicicleta(int i) {
 //para despues :
 //preguntar si esta disponible , si si lo esta enviar a mantenimiento, si no esta disponible no se puede enviar a mantenimiento
 //preguntar si esta en mantenimiento, si si lo esta habilitarla, si no esta en mantenimiento no se puede habilitar
+
+
+//explicarle a Dumnar
+//1 registar devolucion
+//2 cuntas bicis disponibles hay en cada estacion
