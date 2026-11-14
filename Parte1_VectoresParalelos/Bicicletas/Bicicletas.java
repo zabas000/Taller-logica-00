@@ -18,7 +18,16 @@ public class Bicicletas {
         return false;
     }
 
-    
+    static int menorPrestamos(int estacionbici){
+        int menor = 99;
+        for (int i = 0; i < b; i++) {
+            if (estacion[i] == estacionbici && estado[i] == 1 && cantPrestamos[i] < menor) {
+                menor = cantPrestamos[i];
+                return i;
+            }
+        }
+        return -1; // Código no encontrado
+    }
 
     static void mostrarBicicleta(int i) {
         System.out.printf("%-8d %-10d %-8s %-8d%n",
@@ -45,18 +54,15 @@ public class Bicicletas {
     //1 pretamo
 
     static void prestarBicicleta() {
-        System.out.print("Ingrese el codigo de la bicicleta a prestar: ");
-        int cod = sc.nextInt();
-        for (int i = 0; i < b; i++) {
-            if(codigo[i] == cod) {
-                if (estado[i] == 1) {
-                    estado[i] = 2;
-                    cantPrestamos[i]++; 
-                    System.out.println("Bicicleta prestada exitosamente");
-                } else {
-                    System.out.println("Bicicleta no disponible para prestar");
-                }
-            }
+        System.out.print("Ingrese la estación donde quiere prestar: ");
+        int est = sc.nextInt();
+        int i = menorPrestamos(est); 
+        if (estado[i] == 1) {
+            estado[i] = 2;
+            cantPrestamos[i]++; 
+            System.out.println("Bicicleta prestada exitosamente");
+        } else {
+            System.out.println("Bicicleta no disponible para prestar");
         }
         System.out.println("Codigo de bicicleta no encontrado");
     }
@@ -145,10 +151,14 @@ public class Bicicletas {
         int mayorPrestamos = 0;
         for(int i = 0; i < b; i++) {
             if(cantPrestamos[i] > cantPrestamos[mayorPrestamos]) {
-                mayorPrestamos = i;
+                mayorPrestamos = cantPrestamos[i];
             }
         }
-        System.out.println("Mayor cantidad de prestamos: " + cantPrestamos[mayorPrestamos]);
+        for(int i = 0; i < b; i++) {
+            if(cantPrestamos[i] == mayorPrestamos) {
+                System.out.println("Bicicleta con mayor cantidad de préstamos: " + codigo[i]);
+            }
+        }
     }
 
 

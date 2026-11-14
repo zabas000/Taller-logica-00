@@ -173,37 +173,37 @@ static void mostrarMascota(int i) {
 
    //5
     static void resumenFinal(){
-    System.out.println("\nResumen final");
-    System.out.println("Perros adoptados: " + contarM(1));
-    System.out.println("Gatos adoptados: " + contarM(2));
-        int noVacunadas = 0;
-        int mMayorEdad = 0;
-    for(int i = 0 ; i < cantidadM ; i++){
-        if(!adoptada[i] && !vacuna[i]){
-        noVacunadas++;
-    }        
-    }
-
-    for(int i = 1 ; i < cantidadM ; i++){
-        if(adoptada[i])
-            continue;
-        if( edad[i] >edad[ mMayorEdad]){
-            mMayorEdad = i;
+        System.out.println("\nResumen final");
+        System.out.println("Perros adoptados: " + contarM(1));
+        System.out.println("Gatos adoptados: " + contarM(2));
+            int noVacunadas = 0;
+            int mMayorEdad = 0;
+        for(int i = 0 ; i < cantidadM ; i++){
+            if(!adoptada[i] && !vacuna[i]){
+            noVacunadas++;
+        }        
         }
+
+        for(int i = 1 ; i < cantidadM ; i++){
+            if(adoptada[i])
+                continue;
+            if(edad[i] >edad[mMayorEdad]){
+                mMayorEdad = i;
+            }
+        }
+        for(int i = 0 ; i < cantidadM ; i++){
+                if(edad[i] == mMayorEdad){
+                    System.out.println("La mascota de mayor edad es " + nombre[mMayorEdad] + " con " + edad[mMayorEdad] + " meses");
+                }
+            }
+        for(int i = 0 ; i < cantidadM ; i++){
+                if(!adoptada[i] && edad[i] == mMayorEdad){
+                    mostrarMascota(i); 
+                }
+            }
+            System.out.println("Mascotas no vacunadas: " + noVacunadas);
         
     }
-    System.out.println("La mascota de mayor edad es " + nombre[mMayorEdad] + " con " + edad[mMayorEdad] + " meses");
-
-
-    for(int i = 0 ; i < cantidadM ; i++){
-        if(!adoptada[i] && edad[i] == mMayorEdad){
-            mostrarMascota(i); //todas las componentes (preguntar a Diana)
-        }
-        
-    }
-      System.out.println("Mascotas no vacunadas: " + noVacunadas);
-    
-}
 
     //6
     static double porcentaje() {
