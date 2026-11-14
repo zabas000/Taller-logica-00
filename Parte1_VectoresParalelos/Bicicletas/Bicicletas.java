@@ -211,4 +211,4 @@ public class Bicicletas {
 //preguntar si esta en mantenimiento, si si lo esta habilitarla, si no esta en mantenimiento no se puede habilitar
 
 //crear un mini metodo para contar la cantidad de prestamos de cada bicicleta
-//
+//cambio
