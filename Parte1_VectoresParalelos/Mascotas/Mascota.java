@@ -177,32 +177,33 @@ static void mostrarMascota(int i) {
         System.out.println("Perros adoptados: " + contarM(1));
         System.out.println("Gatos adoptados: " + contarM(2));
             int noVacunadas = 0;
-            int mMayorEdad = 0;
+            int mMayorEdad = -1;
+            
         for(int i = 0 ; i < cantidadM ; i++){
             if(!adoptada[i] && !vacuna[i]){
-            noVacunadas++;
-        }        
+                noVacunadas++;
+            }
         }
+        System.out.println("Mascotas no vacunadas: " + noVacunadas);
 
-        for(int i = 1 ; i < cantidadM ; i++){
+        for(int i = 0 ; i < cantidadM ; i++){
             if(adoptada[i])
                 continue;
-            if(edad[i] >edad[mMayorEdad]){
+            if(mMayorEdad == -1 || edad[i] > edad[mMayorEdad]){
                 mMayorEdad = i;
             }
         }
-        for(int i = 0 ; i < cantidadM ; i++){
-                if(edad[i] == mMayorEdad){
-                    System.out.println("La mascota de mayor edad es " + nombre[mMayorEdad] + " con " + edad[mMayorEdad] + " meses");
+
+        if(mMayorEdad == -1){
+            System.out.println("No quedan mascotas disponibles.");
+        }else{
+            System.out.println("Mascota(s) de mayor edad disponible (" + edad[mMayorEdad] + " meses):");
+            for(int i = 0 ; i < cantidadM ; i++){
+                if(!adoptada[i] && edad[i] == edad[mMayorEdad]){
+                    mostrarMascota(i);
                 }
             }
-        for(int i = 0 ; i < cantidadM ; i++){
-                if(!adoptada[i] && edad[i] == mMayorEdad){
-                    mostrarMascota(i); 
-                }
-            }
-            System.out.println("Mascotas no vacunadas: " + noVacunadas);
-        
+        }
     }
 
     //6
