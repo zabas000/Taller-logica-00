@@ -54,7 +54,7 @@ public class Equipo {
         }
     }
 
-    public String getnombre(){
+    public String getNombre(){
         return nombre;
     }
 
