@@ -9,8 +9,15 @@ public class Main {
     static int[] y1 = {0, 4, 4, 2, 5};
     static int[] energiaDispo = {50, 30, 80, 100, 10};
     public static void main(String[] args ){
-        
+        //validacion de datos
         for (int i = 0; i < 5; i++) {
+            while (idRepetido(identificador[i], i) || energiaDispo[i] < 0 || energiaDispo[i] > 100) {
+                System.out.println("Robot " + (i + 1) + ": identificador repetido o energia fuera de 0 a 100.");
+                System.out.print("Identificador: ");
+                identificador[i] = sc.nextInt();
+                System.out.print("Energia: ");
+                energiaDispo[i] = sc.nextInt();
+            }
             robots[i] = new Robot(identificador[i], x1[i], y1[i], energiaDispo[i]);
         }
 
@@ -20,7 +27,7 @@ public class Main {
             System.out.println("1. Mover Robot");
             System.out.println("2. Transferir energía ");
             System.out.println("3. Consultar estado");
-            System.out.println("4. atendner Destino");
+            System.out.println("4. atender Destino");
             System.out.println("5. Finalizar");
             opcion = sc.nextInt();
 
@@ -52,6 +59,19 @@ public class Main {
     }
 
     //mini-metdos#2
+
+        static boolean idRepetido(int id, int hasta) {
+        for (int j = 0; j < hasta; j++) {
+            if (identificador[j] == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
     static int buscarId(int id){
         for(int i = 0 ; i < 5 ;i++ ){
             if(identificador[i] == id){
@@ -71,6 +91,7 @@ public class Main {
         int y = sc.nextInt();
         if(id== -1 ){
             System.out.println("El robot no existe");
+            return;
         }
         if(robots[id].moverA(x, y)){
             System.out.println("Se pudo mover el robot"+ robots[id].getEstado());
@@ -92,6 +113,7 @@ public class Main {
 
         if(d == -1 || r == -1){
             System.out.println("Algun id de robot no existe");
+            return;
         }
 
         if(robots[d].transferirEnergia(robots[r], cantidad)){

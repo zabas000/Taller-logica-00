@@ -48,15 +48,18 @@ public class Main {
 
     //1
     static void seleccionarEquipo(){
-        for(int i = 0 ; i < 4; i++){
-            System.out.println(equipos[i].getNombre());
+        for (int i = 0; i < 4; i++) {
+            System.out.println((i + 1) + ". " + equipos[i].getNombre());
         }
-        System.out.print("Seleccione un equipo: ");
-        selec = sc.nextInt()-1;
-        if(selec< 0 || selec > 3){
-            System.out.print("Equipo no valido");
-        }else{
-            System.out.print("Se selecciono el equipo: "+ equipos[selec].getNombre());
+        for (int intento = 0; intento < 100; intento++) {
+            System.out.print("Seleccione un equipo: ");
+            int elegido = sc.nextInt() - 1;
+            if (elegido >= 0 && elegido < 4) {
+                selec = elegido;
+                System.out.println("Se selecciono el equipo: " + equipos[selec].getNombre());
+                break;
+            }
+            System.out.println("Equipo no valido, intente de nuevo.");
         }
     }
 

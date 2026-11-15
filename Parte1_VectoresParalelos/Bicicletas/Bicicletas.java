@@ -77,7 +77,9 @@ static void registrarDatosiniciales(){
             estado[pos] = 2;
             cantPrestamos[pos]++;
             System.out.println("Bicicleta prestada exitosamente. Codigo: " + codigo[pos]);
-        } else {
+        } else if (est > 4) {
+            System.out.println("Estacion no valida");
+        }else{
             System.out.println("No hay bicicletas disponibles en la estacion " + est + ".");
         }
     }
@@ -106,6 +108,10 @@ static void registrarDatosiniciales(){
     static void enviarMantenimiento(){
         System.out.print("Ingrese el codigo de la bicicleta a enviar a mantenimiento: ");
         int cod = sc.nextInt();
+
+        if(cod < 101 || cod > 112){
+            System.out.print("codigo invalido");
+        }
 
         for (int i = 0; i < b; i++) {
             if(codigo[i] == cod) {
@@ -147,40 +153,47 @@ static void registrarDatosiniciales(){
 
     //6
     static void resumenFinal(){
-        int canDispo = 0;
-        for (int i = 0; i < 4; i++) {
-            canDispo = bicisDisponiblesEstacion(i + 1);
-            System.out.println("Total de bicicletas disponibles en la estacion " + (i + 1) + ": " + canDispo);
-        }
-        
+    for (int i = 0; i < 4; i++) {
+        System.out.println("Total de bicicletas disponibles en la estacion " + (i + 1) + ": " + bicisDisponiblesEstacion(i + 1));
+    }
 
-        int canPres = 0;
-        for(int i = 0; i < b; i++) {
-            if(estado[i] == 2) {
-                canPres++;
-            }
+    System.out.println("\nBicicletas prestadas:");
+    int canPres = 0;
+    for (int i = 0; i < b; i++) {
+        if (estado[i] == 2) {
+            System.out.println("Codigo " + codigo[i] + " (ultima estacion: " + estacion[i] + ")");
+            canPres++;
         }
-        System.out.println("\nTotal de bicicletas prestadas: " + canPres);
+    }
+    if (canPres == 0) {
+        System.out.println("Ninguna bicicleta esta prestada.");
+    }
 
-        int mayorPrestamos = -1;
-        for(int i = 0; i < b; i++) {
-            if(mayorPrestamos == -1 || cantPrestamos[i] > cantPrestamos[mayorPrestamos]) {
-                mayorPrestamos = i;
-            }
+    int mayor = 0;
+    for (int i = 0; i < b; i++) {
+        if (cantPrestamos[i] > mayor) {
+            mayor = cantPrestamos[i];
         }
-        for(int i = 0; i < b; i++) {
-            if(cantPrestamos[i] == cantPrestamos[mayorPrestamos]) {
-                System.out.println("\nBicicleta con mayor cantidad de préstamos: " + codigo[i]);
+    }
+
+    if (mayor == 0) {
+        System.out.println("\nNo se realizo ningun prestamo.");
+    } else {
+        System.out.println("\nBicicleta(s) con mayor cantidad de prestamos (" + mayor + "):");
+        for (int i = 0; i < b; i++) {
+            if (cantPrestamos[i] == mayor) {
+                System.out.println("Codigo " + codigo[i]);
             }
         }
     }
+}
 
     //main
     public static void main(String[] args) {
         registrarDatosiniciales();
 
         int opcion = 0;
-        while (opcion < 7) {
+        while (opcion < 6) {
             System.out.println("\n1 Prestar una bicicleta");
             System.out.println("2 Devolver una bicicleta");
             System.out.println("3 Enviar a mantenimiento");

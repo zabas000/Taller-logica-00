@@ -218,7 +218,7 @@ static void mostrarMascota(int i) {
         registrarDatosIniciales();
 
         int opcion = 0;
-        while (opcion < 6) {
+        while (opcion < 5) {
             System.out.println("\n1 Ver disponibles");
             System.out.println("2 Registrar Vacunacion");
             System.out.println("3 Adoptar");
