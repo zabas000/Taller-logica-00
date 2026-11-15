@@ -1,3 +1,5 @@
+package Parte2_VectoresDeObjetos.room;
+
 public class Equipo {
     private String nombre;
     private int acertijosResueltos;
@@ -19,7 +21,6 @@ public class Equipo {
             if(respuestaCorrecta) {
                 acertijosResueltos++;
                 puntajeAcumulado += 20;
-                return true; //si se registro la Respu
         }else{
             if(puntajeAcumulado >= 10){
                 puntajeAcumulado -= 10;
@@ -27,6 +28,7 @@ public class Equipo {
                 puntajeAcumulado = 0;
             }
         }
+        return true; //si se registro la Respu
     }
 
 //2
@@ -81,7 +83,6 @@ public class Equipo {
 
 
 }
-
 
 //mini-metodos
 
