@@ -15,7 +15,7 @@ public class Equipo {
 //metodos
 //1
     public boolean registrarRespuesta (boolean respuestaCorrecta) {
-        if(completoAcertijos()){
+        if(completoAcertijos()){//esto en primer instacia siempre es true
             return false;//no se registra nada
         }
             if(respuestaCorrecta) {
@@ -36,7 +36,7 @@ public class Equipo {
         if (completoAcertijos() || pistasDisponibles <= 0) {
             return false; // no se modifica nada
         }
-        pistasDisponibles--;
+        pistasDisponibles--; // pistasDisponibles= pistasDisponibles-1
         if (puntajeAcumulado >= 15) {
             puntajeAcumulado -= 15;
         } else {
@@ -72,7 +72,7 @@ public class Equipo {
 
     public String getEstado() {
         String estado = "Equipo: " + nombre
-                + "  Acertijos: " + acertijosResueltos + ":" + 5
+                + "  Acertijos: " + acertijosResueltos + " de " + 5
                 + "  Pistas: " + pistasDisponibles
                 + "  Puntaje: " + puntajeAcumulado;
         if (completoAcertijos()) {
