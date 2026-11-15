@@ -1,0 +1,9 @@
+Comienza con 100 puntos
+
+Cada respuesta correcta permite avanzar al siguiente acertijo y suma 20
+
+respuesta incorrecta resta 10 puntos
+
+Solicitar una pista resta 15 puntos y consume una de las pistas disponibles
+
+El puntaje nunca puede ser negativo.
