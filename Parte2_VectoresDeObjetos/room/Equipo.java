@@ -1,64 +1,58 @@
 public class Equipo {
-    //datos constantes
-    private static final int TOTAL_ACERTIJOS = 5;
-    private static final int PUNTAJE_INICIAL = 100;
-    private static final int PISTAS_INICIALES = 3;
-    private static final int PUNTOS_ACIERTO = 20;
-    private static final int PENALIZACION_ERROR = 10;
-    private static final int PENALIZACION_PISTA = 15;
-
-
     private String nombre;
     private int acertijosResueltos;
     private int pistasDisponibles;
-    private int puntaje;
+    private int puntajeAcumulado;
 
-    public Equipo(String nombre) {
+    public Equipo (String nombre) {
         this.nombre = nombre;
         this.acertijosResueltos = 0;
-        this.pistasDisponibles = PISTAS_INICIALES;
-        this.puntaje = PUNTAJE_INICIAL;
+        this.pistasDisponibles = 3;
+        this.puntajeAcumulado = 100;
     }
-
-    //1
-    public boolean registrarRespuesta(boolean correcta) {
-    if (completoAcertijos()) {
-        return false;
-    }
-    if (correcta) {
-        acertijosResueltos++;
-        puntaje += PUNTOS_ACIERTO;
-    } else {
-        if (puntaje >= PENALIZACION_ERROR) {
-            puntaje -= PENALIZACION_ERROR;
-        } else {
-            puntaje = 0;
+//metodos
+//1
+    public boolean registrarRespuesta (boolean respuestaCorrecta) {
+        if(completoAcertijos()){
+            return false;//no se registra nada
+        }
+            if(respuestaCorrecta) {
+                acertijosResueltos++;
+                puntajeAcumulado += 20;
+                return true; //si se registro la Respu
+        }else{
+            if(puntajeAcumulado >= 10){
+                puntajeAcumulado -= 10;
+            }else {
+                puntajeAcumulado = 0;
+            }
         }
     }
-    return true;
-    }
 
-    //2
+//2
     public boolean solicitarPista() {
         if (completoAcertijos() || pistasDisponibles <= 0) {
-            return false;
+            return false; // no se modifica nada
         }
         pistasDisponibles--;
-
-        if (puntaje >= PENALIZACION_PISTA) {
-            puntaje -= PENALIZACION_PISTA;
+        if (puntajeAcumulado >= 15) {
+            puntajeAcumulado -= 15;
         } else {
-            puntaje = 0;
+            puntajeAcumulado = 0;
         }
-        return true;
+        return true; // la pista sí se usó
     }
 
 
-    public boolean completoAcertijos() {
-        return acertijosResueltos >= TOTAL_ACERTIJOS;
+    public boolean completoAcertijos () {
+        if(acertijosResueltos < 5) {
+            return false; //no ha terminado
+        } else {
+            return true; // ya termino
+        }
     }
 
-    public String getNombre() {
+    public String getnombre(){
         return nombre;
     }
 
@@ -71,18 +65,23 @@ public class Equipo {
     }
 
     public int getPuntaje() {
-        return puntaje;
+        return puntajeAcumulado;
     }
 
     public String getEstado() {
         String estado = "Equipo: " + nombre
-                + " | Acertijos: " + acertijosResueltos + "/" + TOTAL_ACERTIJOS
-                + " | Pistas: " + pistasDisponibles
-                + " | Puntaje: " + puntaje;
+                + "  Acertijos: " + acertijosResueltos + ":" + 5
+                + "  Pistas: " + pistasDisponibles
+                + "  Puntaje: " + puntajeAcumulado;
         if (completoAcertijos()) {
-            estado += " | COMPLETADO";
+            estado += "  COMPLETADO";
         }
         return estado;
     }
 
+
 }
+
+
+//mini-metodos
+
