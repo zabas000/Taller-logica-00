@@ -27,7 +27,7 @@ static int menorPrestamos(int estacionbici){
             pos = i;
         }
     }
-    return pos;   // posicion de la bicicleta elegida, o -1 si no hay ninguna
+    return pos;
 }
 
 static String nombreEstado(int i) {
@@ -69,7 +69,6 @@ static void registrarDatosiniciales(){
     
     //menu
     //1 prestamo
-    //repasar
     static void prestarBicicleta() {
         System.out.print("Ingrese la estación donde quiere prestar: ");
         int est = sc.nextInt();
@@ -227,9 +226,3 @@ static void registrarDatosiniciales(){
     }
     
 }
-
-
-
-//para despues :
-//preguntar si esta disponible , si si lo esta enviar a mantenimiento, si no esta disponible no se puede enviar a mantenimiento
-//preguntar si esta en mantenimiento, si si lo esta habilitarla, si no esta en mantenimiento no se puede habilitar

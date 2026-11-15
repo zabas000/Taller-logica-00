@@ -15,8 +15,8 @@ public class Equipo {
 //metodos
 //1
     public boolean registrarRespuesta (boolean respuestaCorrecta) {
-        if(completoAcertijos()){//esto en primer instacia siempre es true
-            return false;//no se registra nada
+        if(completoAcertijos()){
+            return false;
         }
             if(respuestaCorrecta) {
                 acertijosResueltos++;
@@ -28,32 +28,33 @@ public class Equipo {
                 puntajeAcumulado = 0;
             }
         }
-        return true; //si se registro la Respu
+        return true; 
     }
 
 //2
     public boolean solicitarPista() {
         if (completoAcertijos() || pistasDisponibles <= 0) {
-            return false; // no se modifica nada
+            return false;
         }
-        pistasDisponibles--; // pistasDisponibles= pistasDisponibles-1
+        pistasDisponibles--;
         if (puntajeAcumulado >= 15) {
             puntajeAcumulado -= 15;
         } else {
             puntajeAcumulado = 0;
         }
-        return true; // la pista sí se usó
+        return true;
     }
 
-
+//3
     public boolean completoAcertijos () {
         if(acertijosResueltos < 5) {
-            return false; //no ha terminado
+            return false; 
         } else {
-            return true; // ya termino
+            return true; 
         }
     }
-
+    
+//mini-metodo
     public String getNombre(){
         return nombre;
     }
@@ -83,6 +84,4 @@ public class Equipo {
 
 
 }
-
-//mini-metodos
 

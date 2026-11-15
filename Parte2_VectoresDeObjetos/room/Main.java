@@ -44,16 +44,13 @@ public class Main {
                     System.out.println("Opción inválida.");
             }
         }
-        //1resultados();
     }
 
     //1
     static void seleccionarEquipo(){
-        //muestra todos los equipos
         for(int i = 0 ; i < 4; i++){
             System.out.println(equipos[i].getNombre());
         }
-        // pide seleccionar uno de esos mostrados
         System.out.print("Seleccione un equipo: ");
         selec = sc.nextInt()-1;
         if(selec< 0 || selec > 3){

@@ -13,7 +13,7 @@ public class Mascota {
     static int[] codigo = new int[m];
 
 
-    static  int  cantidadM = 5; // cantidad de mascotas registradas
+    static  int  cantidadM = 5; 
     
     //mini-metodos
     static int buscarPorCodigo(int cod) {
@@ -250,6 +250,3 @@ static void mostrarMascota(int i) {
         }
     }
 }
-
-//Una mascota está disponible cuando no ha sido adoptada
-// apta para adopción cuando está disponible, tiene 3 o más meses de edad y está vacunada.

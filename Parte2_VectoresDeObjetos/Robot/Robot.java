@@ -1,3 +1,4 @@
+package Parte2_VectoresDeObjetos.Robot;
 public class Robot {
     private int identificador;
     private int x1;
@@ -11,13 +12,13 @@ public class Robot {
         this.energiaDispo = energiaDispo;
     }
 
-    
-    //Distancia = |x destino − x origen| + |y destino − y origen|
+    //1
+    //formula ejercicio----> Distancia = |x destino − x origen| + |y destino − y origen|
     public int distanciaHasta(int xDes, int yDes) {
         return Math.abs(xDes - this.x1) + Math.abs(yDes - this.y1);
     }
 
-
+    //2
     public boolean moverA(int x, int y){
         int dis = distanciaHasta(x, y);
         if(dis <= energiaDispo){
@@ -31,9 +32,7 @@ public class Robot {
     }
 
 
-//a.transene
-
-
+    //3
     public boolean transferirEnergia(Robot receptor , int cantidad){
         if(receptor == null || receptor.identificador == identificador){
             return false;
