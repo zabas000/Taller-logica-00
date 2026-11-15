@@ -14,7 +14,7 @@ public class Main {
         equipos[3] = new Equipo("Equipo 4");
 
         int opcion = 0;
-        while (opcion != 5) {
+        while (opcion < 5) {
             System.out.println("\n--- ESCAPE ROOM ---");
             System.out.println("1. Seleccionar equipo");
             System.out.println("2. Registrar respuesta");
